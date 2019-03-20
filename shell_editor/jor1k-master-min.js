@@ -1732,7 +1732,7 @@ function jor1kGUI(parameters)
     // ----------------------
 
     this.worker = (this.params.worker instanceof Worker) ?
-        this.params.worker : new Worker("https://cdn.jsdelivr.net/gh/liunix1982/livecode_runtime/shell_editor/jor1k-worker-min.js");
+        this.params.worker : new Worker("jor1k-worker-min.js");
 
     message.SetWorker(this.worker);
     message.Send("WorkingPath", this.params.path);
