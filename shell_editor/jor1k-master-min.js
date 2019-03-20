@@ -1732,6 +1732,7 @@ function jor1kGUI(parameters)
     // ----------------------
 
     this.worker = (this.params.worker instanceof Worker) ?
+    // sdfa
         this.params.worker : new Worker("jor1k-worker-min.js");
 
     message.SetWorker(this.worker);
