@@ -1,0 +1,82 @@
+{
+  "name": "browserfs",
+  "version": "0.5.13",
+  "description": "A filesystem in your browser!",
+  "main": "dist/browserfs.js",
+  "typings": "dist/node/main",
+  "keywords": [
+    "filesystem",
+    "node",
+    "storage"
+  ],
+  "homepage": "https://github.com/jvilk/BrowserFS",
+  "author": "John Vilk <jvilk@cs.umass.edu> (http://people.cs.umass.edu/~jvilk)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jvilk/BrowserFS.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jvilk/BrowserFS/issues"
+  },
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "devDependencies": {
+    "aliasify": "^2.0.0",
+    "archiver": "^1.0.1",
+    "bfs-buffer": "^0.1.7",
+    "bfs-path": "^0.1.2",
+    "bfs-process": "^0.1.6",
+    "browserify": "^13.0.0",
+    "browserify-derequire": "~0.9.4",
+    "browserify-shim": "^3.8.12",
+    "coffee-script": "^1.10.0",
+    "detect-browsers": "^2.0.0",
+    "dropbox": "^0.10.3",
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.0.0",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-exorcise": "^2.1.1",
+    "grunt-istanbul": "^0.7.0",
+    "grunt-karma": "^2.0.0",
+    "grunt-shell": "^1.2.1",
+    "grunt-ts": "^5.3.2",
+    "karma": "^1.2.0",
+    "karma-browserify": "^5.0.2",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-ie-launcher": "^1.0.0",
+    "karma-mocha": "^1.1.1",
+    "karma-opera-launcher": "^1.0.0",
+    "karma-safari-launcher": "^1.0.0",
+    "mocha": "^3.0.2",
+    "mold-source-map": "^0.4.0",
+    "object-wrapper": "^0.1.1",
+    "remap-istanbul": "^0.5.1",
+    "tsify": "^1.0.3",
+    "typescript": "^1.8.2",
+    "underscore": "^1.8.3"
+  },
+  "scripts": {
+    "test": "grunt test",
+    "prepublish": "grunt dist"
+  },
+  "aliasify": {
+    "aliases": {
+      "fs": "./src/core/node_fs.ts",
+      "wrapped-assert": "./test/harness/wrapped-assert.ts"
+    }
+  },
+  "dependencies": {
+    "async": "^2.0.1",
+    "pako": "^1.0.0"
+  },
+  "_from": "browserfs@0.5.13",
+  "_resolved": "http://registry.npm.taobao.org/browserfs/download/browserfs-0.5.13.tgz"
+}
