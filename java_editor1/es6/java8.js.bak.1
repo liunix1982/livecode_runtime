@@ -25287,7 +25287,8 @@ function () {
               case 0:
                 start = new Date();
                 _context.next = 3;
-                return fetch("http://localhost:1234/java.zip");
+                // return fetch("http://localhost:1234/java.zip");
+                return fetch("es6/java.zip");
 
               case 3:
                 response = _context.sent;
@@ -40870,6 +40871,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 var jsonPath = require("jsonpath");
 
 var ImportFromJsonCompleter =
@@ -40887,60 +40890,146 @@ function () {
   }, {
     key: "queryExample",
     value: function queryExample() {
-      var session = _Session.default.getInstance();
+      return _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        var session, result;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                session = _Session.default.getInstance();
+                _context.t0 = jsonPath;
+                _context.next = 4;
+                return session.getJavaStdLib();
 
-      var result = jsonPath.query(session.getJavaStdLib(), "$.files[*].packageName");
-      console.log("==============" + result.length);
+              case 4:
+                _context.t1 = _context.sent;
+                result = _context.t0.query.call(_context.t0, _context.t1, "$.files[*].packageName");
+                console.log("==============" + result.length);
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     } //异步传染，真是不太习惯，但觉得这是正解啊
     //TODO 去除这里的异步，去除async/await并直接获取session的属性
 
   }, {
     key: "getCandicates",
     value: function getCandicates(input, cursor) {
-      if (input.length < cursor || input.length < "import ".length || input.indexOf(" ") < 0 || cursor < "import ".length) return null;
-      var realString = input.substr(0, cursor).split(" ")[1];
-      var parts = realString.split("."); //和java的split方法有区别，java.util. 会出三个数组元素，最后一个为空
+      return _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2() {
+        var realString, parts, result, lastPart, session, cleanParts, packageName, classes, subPackages, newParts, _packageName, _classes, _packageName2, _subPackages;
 
-      var result = null;
-      var lastPart = parts[parts.length - 1];
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!(input.length < cursor || input.length < "import ".length || input.indexOf(" ") < 0 || cursor < "import ".length)) {
+                  _context2.next = 2;
+                  break;
+                }
 
-      var session = _Session.default.getInstance();
+                return _context2.abrupt("return", null);
 
-      if (input.charAt(cursor - 1) == '.') {
-        var cleanParts = parts.slice(0, parts.length - 1); //这一行可能对下面有问题，需要调整
-        //子类部分
+              case 2:
+                realString = input.substr(0, cursor).split(" ")[1];
+                parts = realString.split("."); //和java的split方法有区别，java.util. 会出三个数组元素，最后一个为空
 
-        var packageName = cleanParts.join(".");
-        var classes = jsonPath.query(session.getJavaStdLib(), "$.files[?(@.packageName == '".concat(packageName, "' )].entities[*].simpleName"));
-        console.log(classes); //子包部分,js版本jsonpath没找到正则匹配方式，进行filter过滤, startsWith比java多个s
+                result = null;
+                lastPart = parts[parts.length - 1];
+                session = _Session.default.getInstance();
 
-        packageName = packageName + ".";
-        var subPackages = jsonPath.query(session.getJavaStdLib(), "$.files[*].packageName").filter(function (item) {
-          return item.startsWith(packageName);
-        });
-        console.log(subPackages);
-        result = classes.concat(subPackages);
-      } else if (ImportFromJsonCompleter.startWithUpperChar(lastPart)) {
-        //部分类名完成: 最后部分大写字母开头，包名要精确匹配
-        var newParts = parts.slice(0, parts.length - 1);
+                if (!(input.charAt(cursor - 1) == '.')) {
+                  _context2.next = 28;
+                  break;
+                }
 
-        var _packageName = newParts.join(".");
+                cleanParts = parts.slice(0, parts.length - 1); //这一行可能对下面有问题，需要调整
+                //子类部分
 
-        var _classes = jsonPath.query(session.getJavaStdLib(), "$.files[?(@.packageName == '".concat(_packageName, "' )].entities[*].simpleName"));
+                packageName = cleanParts.join(".");
+                _context2.t0 = jsonPath;
+                _context2.next = 13;
+                return session.getJavaStdLib();
 
-        result = _classes;
-      } else {
-        //包完成
-        var _packageName2 = parts.join(".");
+              case 13:
+                _context2.t1 = _context2.sent;
+                _context2.t2 = "$.files[?(@.packageName == '".concat(packageName, "' )].entities[*].simpleName");
+                classes = _context2.t0.query.call(_context2.t0, _context2.t1, _context2.t2);
+                console.log(classes); //子包部分,js版本jsonpath没找到正则匹配方式，进行filter过滤, startsWith比java多个s
 
-        var _subPackages = jsonPath.query(session.getJavaStdLib(), "$.files[*].packageName").filter(function (item) {
-          return item.startsWith(_packageName2);
-        });
+                packageName = packageName + ".";
+                _context2.t3 = jsonPath;
+                _context2.next = 21;
+                return session.getJavaStdLib();
 
-        result = _subPackages;
-      }
+              case 21:
+                _context2.t4 = _context2.sent;
 
-      return result;
+                _context2.t5 = function (item) {
+                  return item.startsWith(packageName);
+                };
+
+                subPackages = _context2.t3.query.call(_context2.t3, _context2.t4, "$.files[*].packageName").filter(_context2.t5);
+                console.log(subPackages);
+                result = classes.concat(subPackages);
+                _context2.next = 48;
+                break;
+
+              case 28:
+                if (!ImportFromJsonCompleter.startWithUpperChar(lastPart)) {
+                  _context2.next = 40;
+                  break;
+                }
+
+                //部分类名完成: 最后部分大写字母开头，包名要精确匹配
+                newParts = parts.slice(0, parts.length - 1);
+                _packageName = newParts.join(".");
+                _context2.t6 = jsonPath;
+                _context2.next = 34;
+                return session.getJavaStdLib();
+
+              case 34:
+                _context2.t7 = _context2.sent;
+                _context2.t8 = "$.files[?(@.packageName == '".concat(_packageName, "' )].entities[*].simpleName");
+                _classes = _context2.t6.query.call(_context2.t6, _context2.t7, _context2.t8);
+                result = _classes;
+                _context2.next = 48;
+                break;
+
+              case 40:
+                //包完成
+                _packageName2 = parts.join(".");
+                _context2.t9 = jsonPath;
+                _context2.next = 44;
+                return session.getJavaStdLib();
+
+              case 44:
+                _context2.t10 = _context2.sent;
+
+                _context2.t11 = function (item) {
+                  return item.startsWith(_packageName2);
+                };
+
+                _subPackages = _context2.t9.query.call(_context2.t9, _context2.t10, "$.files[*].packageName").filter(_context2.t11);
+                result = _subPackages;
+
+              case 48:
+                return _context2.abrupt("return", result);
+
+              case 49:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
   }]);
 
@@ -53795,9 +53884,7 @@ var newWithDeclareListener = new listenerClass.JavaParserListener();
 newWithDeclareListener.declaredClasses = [];
 
 newWithDeclareListener.exitClassDeclaration = function (ctx) {
-  // clear declaredClass cache
   newWithDeclareListener.declaredClasses = [];
-
   if (ctx.getChildCount() == 3) {
     var fullClassName = ctx.getChild(1).getText();
     newWithDeclareListener.declaredClasses.push(fullClassName);
@@ -53856,8 +53943,8 @@ function () {
       });
 
       walker.walk(_NewWithDeclareListener.default, this.tree);
-
-      var declareList = _NewWithDeclareListener.default.declaredClasses.filter(function (it) {
+      var declareList=[];
+        declareList = _NewWithDeclareListener.default.declaredClasses.filter(function (it) {
         return it.startsWith(input);
       });
 
@@ -67752,10 +67839,8 @@ function () {
       this.inputStream = new antlr.InputStream(this.input);
       this.lexer = new lexerClass.JavaLexer(this.inputStream); //不像java,this. 需要明确指出
 
-      this.lexer.removeErrorListeners();
       this.tokenStream = new antlr.CommonTokenStream(this.lexer);
       this.parser = new parserClass.JavaParser(this.tokenStream);
-      this.parser.removeErrorListeners();
       this.tree = this.parser.compilationUnit();
     }
   }, {
@@ -67867,7 +67952,10 @@ function () {
   }, {
     key: "doComplete",
     value: function doComplete(doc, row, col) {
-      console.log(doc);
+      console.log("doComplete 参数打印：")
+      console.log(doc)
+      console.log(row)
+      console.log(col)
       var lines = doc.split("\n");
       var currentLine = lines[row];
 
@@ -67895,28 +67983,9 @@ GLOBAL.complete = function (doc, row, col) {
   return completer.doComplete(doc, row, col);
 };
 /****************************************** */
-// let start = new Date()
-//todo 去除默认的错误listener
-// let doc = "public class Main{ public static void main(String args[]){ Main main = new Main(); } }"
-// let result = complete(doc,0,77)
-// console.log(result)
-// console.log("1用时："+(new Date() - start))
-// start = new Date()
-// doc = "public class Main{ public static void main(String args[]){ int asdf=5; System.out.println(as); } }"
-// result = complete(doc,0,91)
-// console.log(result)
-// console.log("2用时："+(new Date() - start))
-// start = new Date()
-// doc = "public class Main{ public static int sum() {}\npublic static void main(String[] args){ Main.sum(); } }";
-// result = complete(doc,1,46)
-// console.log(result)
-// console.log("3用时："+(new Date() - start))
-//todo: 考虑去除importfromjsoncompleter.js中的异步吧,这个测试可以setimeout完成自动化
-// doc = "import java.util.List; public class Main{ public static void main(String[] args){ System.out.println(\"main\"); } }";
-// result = complete(doc, 0, 19)
-// result.then((data)=>{
-//     console.log(data)
-// })
+
+
+
 },{"babel-polyfill":"node_modules/babel-polyfill/lib/index.js","./src/java8/Session":"src/java8/Session.js","./src/java8/completers/ImportFromJsonCompleter":"src/java8/completers/ImportFromJsonCompleter.js","./src/java8/completers/NewCompleter":"src/java8/completers/NewCompleter.js","./src/java8/completers/MemberCompleter":"src/java8/completers/MemberCompleter.js","./src/java8/completers/VariableNameCompleter":"src/java8/completers/VariableNameCompleter.js","./src/java8/ParserHelper":"src/java8/ParserHelper.js","./src/java8/Util":"src/java8/Util.js"}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -67941,67 +68010,6 @@ function Module(moduleName) {
 module.bundle.Module = Module;
 var checkedAssets, assetsToAccept;
 var parent = module.bundle.parent;
-
-if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
-  var hostname = "" || location.hostname;
-  var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34839" + '/');
-
-  ws.onmessage = function (event) {
-    checkedAssets = {};
-    assetsToAccept = [];
-    var data = JSON.parse(event.data);
-
-    if (data.type === 'update') {
-      var handled = false;
-      data.assets.forEach(function (asset) {
-        if (!asset.isNew) {
-          var didAccept = hmrAcceptCheck(global.parcelRequire, asset.id);
-
-          if (didAccept) {
-            handled = true;
-          }
-        }
-      }); // Enable HMR for CSS by default.
-
-      handled = handled || data.assets.every(function (asset) {
-        return asset.type === 'css' && asset.generated.js;
-      });
-
-      if (handled) {
-        console.clear();
-        data.assets.forEach(function (asset) {
-          hmrApply(global.parcelRequire, asset);
-        });
-        assetsToAccept.forEach(function (v) {
-          hmrAcceptRun(v[0], v[1]);
-        });
-      } else {
-        window.location.reload();
-      }
-    }
-
-    if (data.type === 'reload') {
-      ws.close();
-
-      ws.onclose = function () {
-        location.reload();
-      };
-    }
-
-    if (data.type === 'error-resolved') {
-      console.log('[parcel] ✨ Error resolved');
-      removeErrorOverlay();
-    }
-
-    if (data.type === 'error') {
-      console.error('[parcel] 🚨  ' + data.error.message + '\n' + data.error.stack);
-      removeErrorOverlay();
-      var overlay = createErrorOverlay(data);
-      document.body.appendChild(overlay);
-    }
-  };
-}
 
 function removeErrorOverlay() {
   var overlay = document.getElementById(OVERLAY_ID);
