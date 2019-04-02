@@ -67985,28 +67985,7 @@ GLOBAL.complete = function (doc, row, col) {
 /****************************************** */
 
 
-// var start = new Date(); //todo 去除默认的错误listener
 
-// var doc = "public class Main{ public static void main(String args[]){ Main main = new Main(); } }";
-// var result = complete(doc, 0, 77);
-// console.log(result);
-// console.log("1用时：" + (new Date() - start));
-// start = new Date();
-// doc = "public class Main{ public static void main(String args[]){ int asdf=5; System.out.println(as); } }";
-// result = complete(doc, 0, 91);
-// console.log(result);
-// console.log("2用时：" + (new Date() - start));
-// start = new Date();
-// doc = "public class Main{ public static int sum() {}\npublic static void main(String[] args){ Main.sum(); } }";
-// result = complete(doc, 1, 46);
-// console.log(result);
-// console.log("3用时：" + (new Date() - start)); //todo: 考虑去除importfromjsoncompleter.js中的异步吧,这个测试可以setimeout完成自动化
-
-// doc = "import java.util.List; public class Main{ public static void main(String[] args){ System.out.println(\"main\"); } }";
-// result = complete(doc, 0, 19);
-// result.then(function (data) {
-//   console.log(data);
-// });
 },{"babel-polyfill":"node_modules/babel-polyfill/lib/index.js","./src/java8/Session":"src/java8/Session.js","./src/java8/completers/ImportFromJsonCompleter":"src/java8/completers/ImportFromJsonCompleter.js","./src/java8/completers/NewCompleter":"src/java8/completers/NewCompleter.js","./src/java8/completers/MemberCompleter":"src/java8/completers/MemberCompleter.js","./src/java8/completers/VariableNameCompleter":"src/java8/completers/VariableNameCompleter.js","./src/java8/ParserHelper":"src/java8/ParserHelper.js","./src/java8/Util":"src/java8/Util.js"}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -68031,67 +68010,6 @@ function Module(moduleName) {
 module.bundle.Module = Module;
 var checkedAssets, assetsToAccept;
 var parent = module.bundle.parent;
-
-// if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
-//   var hostname = "" || location.hostname;
-//   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-//   var ws = new WebSocket(protocol + '://' + hostname + ':' + "37289" + '/');
-
-//   ws.onmessage = function (event) {
-//     checkedAssets = {};
-//     assetsToAccept = [];
-//     var data = JSON.parse(event.data);
-
-//     if (data.type === 'update') {
-//       var handled = false;
-//       data.assets.forEach(function (asset) {
-//         if (!asset.isNew) {
-//           var didAccept = hmrAcceptCheck(global.parcelRequire, asset.id);
-
-//           if (didAccept) {
-//             handled = true;
-//           }
-//         }
-//       }); // Enable HMR for CSS by default.
-
-//       handled = handled || data.assets.every(function (asset) {
-//         return asset.type === 'css' && asset.generated.js;
-//       });
-
-//       if (handled) {
-//         console.clear();
-//         data.assets.forEach(function (asset) {
-//           hmrApply(global.parcelRequire, asset);
-//         });
-//         assetsToAccept.forEach(function (v) {
-//           hmrAcceptRun(v[0], v[1]);
-//         });
-//       } else {
-//         window.location.reload();
-//       }
-//     }
-
-//     if (data.type === 'reload') {
-//       ws.close();
-
-//       ws.onclose = function () {
-//         location.reload();
-//       };
-//     }
-
-//     if (data.type === 'error-resolved') {
-//       console.log('[parcel] ✨ Error resolved');
-//       removeErrorOverlay();
-//     }
-
-//     if (data.type === 'error') {
-//       console.error('[parcel] 🚨  ' + data.error.message + '\n' + data.error.stack);
-//       removeErrorOverlay();
-//       var overlay = createErrorOverlay(data);
-//       document.body.appendChild(overlay);
-//     }
-//   };
-// }
 
 function removeErrorOverlay() {
   var overlay = document.getElementById(OVERLAY_ID);
